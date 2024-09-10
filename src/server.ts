@@ -1,9 +1,14 @@
 import fastify from 'fastify';
+import fastifyCors from 'fastify-cors';
 import { z } from 'zod';
 import { PrismaClient } from '@prisma/client';
 
 const app = fastify();
 const prisma = new PrismaClient();
+
+app.register(fastifyCors, {
+    origin: true, 
+});
 
 app.get('/playlist', async (request, reply) => {
     const playlists = await prisma.playlists.findMany({
@@ -33,4 +38,4 @@ app.listen({
     port: process.env.PORT? Number(process.env.PORT) : 3333,
 }).then(()=>{
     console.log('Server is running on port 3333');
-})
+});
