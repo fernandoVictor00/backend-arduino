@@ -14,10 +14,9 @@ datasource db {
 }
 
 model playlists {
-  id          String   @id @default(cuid())
+  id          Int   @id @default(autoincrement())
   src         String
   description String?
-  link        String
   videos      Video[]
 }
 
@@ -26,6 +25,6 @@ model Video {
   title       String
   url         String
   description String?
-  playlistId  String
+  playlistId  Int
   playlist    playlists @relation(fields: [playlistId], references: [id])
 }
